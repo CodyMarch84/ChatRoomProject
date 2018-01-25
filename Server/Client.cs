@@ -12,24 +12,45 @@ namespace Server
         NetworkStream stream;
         TcpClient client;
         public string UserId;
+        public string userName;
+        public bool isConnected = true;
         public Client(NetworkStream Stream, TcpClient Client)
         {
             stream = Stream;
-            client = Client;
+            //client = Client;
             UserId = "495933b6-1762-47a1-b655-483510072e73";
         }
         public void Send(string Message)
         {
-            byte[] message = Encoding.ASCII.GetBytes(Message);
-            stream.Write(message, 0, message.Count());
+            try
+            {
+                byte[] message = Encoding.ASCII.GetBytes(Message);
+                stream.Write(message, 0, message.Count());
+            }
+            catch
+            {
+                isConnected = false;
+            }
+            
         }
         public string Recieve()
         {
-            byte[] recievedMessage = new byte[256];
-            stream.Read(recievedMessage, 0, recievedMessage.Length);
-            string recievedMessageString = Encoding.ASCII.GetString(recievedMessage);
-            Console.WriteLine(recievedMessageString);
-            return recievedMessageString;
+            try
+            {
+                byte[] recievedMessage = new byte[256];
+                stream.Read(recievedMessage, 0, recievedMessage.Length);
+                string recievedMessageString = Encoding.ASCII.GetString(recievedMessage);
+                //get rid of the extra space in a message here
+                Console.WriteLine(recievedMessageString);
+                return recievedMessageString;
+            }
+            catch
+            {
+                string disconnected = "Some one left the chat room!";
+                Console.WriteLine(disconnected);
+                return disconnected;
+            }
+            
         }
 
     }

@@ -15,17 +15,29 @@ namespace Client
 
         public string userName;
 
-        internal void ShowClient(string userName)
-        {
-            throw new NotImplementedException();
-        }
+        //internal void ShowClient()
+        //{
+        //    Console.WriteLine("What is your userName: ");
+        //    userName = Console.ReadLine();
+        //
+        //    // add a method to send userName to ServerClientProject server class
+        //}
 
         public Client(string IP, int port)
         {
+            TypeName();
             clientSocket = new TcpClient();
             clientSocket.Connect(IPAddress.Parse(IP), port);
             stream = clientSocket.GetStream();
+            Send(userName);
         }
+
+        private void Send(string userName)
+        {            
+            byte[] message = Encoding.ASCII.GetBytes(userName);
+            stream.Write(message, 0, message.Count());
+        }
+
         public void Send()
         {
             string messageString = UI.GetInput();

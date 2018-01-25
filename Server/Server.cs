@@ -32,12 +32,12 @@ namespace Server
         }
         private void ClientTalk(Client client)
         {
-            while (true)
+            while (client.isConnected)
             {
                 string message = client.Recieve();
                 lock (message)
                 {
-                    messages.Enqueue(message);
+                    messages.Enqueue(/*client.userName + */message);
                 }
                 if (messages.Count > 0)
                 {
@@ -58,6 +58,7 @@ namespace Server
                 Console.WriteLine("Connected");
                 NetworkStream stream = clientSocket.GetStream();
                 client = new Client(stream, clientSocket);
+                client.userName = client.Recieve();
                 users.Add(counter, client);
                 counter++;
                 Task.Run(() => ClientTalk(client));
@@ -67,8 +68,10 @@ namespace Server
         {
             foreach (KeyValuePair<int, Client> entry in users)
             {
-                entry.Value.Send(body);
-
+                if (entry.Value.isConnected)
+                {
+                    entry.Value.Send(body);
+                }
             }
         }
     }

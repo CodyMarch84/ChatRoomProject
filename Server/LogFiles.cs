@@ -17,7 +17,7 @@ namespace Server
 
         public void Logger(string message)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
     }
 }
