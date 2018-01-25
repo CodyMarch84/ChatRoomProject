@@ -40,7 +40,8 @@ namespace Server
                 byte[] recievedMessage = new byte[256];
                 stream.Read(recievedMessage, 0, recievedMessage.Length);
                 string recievedMessageString = Encoding.ASCII.GetString(recievedMessage);
-                //get rid of the extra space in a message here
+
+                //gets rid of the extra space in a message
                 while (recievedMessageString.EndsWith("\0"))
                 {
                     string placeHolder = recievedMessageString.Substring(0, recievedMessageString.Length - 1);

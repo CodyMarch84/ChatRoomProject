@@ -11,7 +11,6 @@ namespace Server
         static void Main(string[] args)
         {
             LogFiles fl = new LogFiles("file.txt");
-            //Server server = new Server(fl);
             new Server(fl).Run();
             Console.ReadLine();
         }

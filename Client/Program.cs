@@ -12,8 +12,6 @@ namespace Client
         {
             Client client = new Client("127.0.0.1", 9999);
 
-            //client.ShowClient(client.userName);
-
             //parallel invoke creates the threads.
             Parallel.Invoke(() =>
             {
@@ -30,7 +28,6 @@ namespace Client
                     client.Recieve();
 
                 }
-                //might need readline here
             });
         }
     }

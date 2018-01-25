@@ -12,16 +12,7 @@ namespace Client
     {
         TcpClient clientSocket;
         NetworkStream stream;
-
         public string userName;
-
-        //internal void ShowClient()
-        //{
-        //    Console.WriteLine("What is your userName: ");
-        //    userName = Console.ReadLine();
-        //
-        //    // add a method to send userName to ServerClientProject server class
-        //}
 
         public Client(string IP, int port)
         {

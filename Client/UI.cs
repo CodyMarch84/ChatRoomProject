@@ -12,7 +12,7 @@ namespace Client
         {
             while (message.EndsWith("\0"))
             {
-                string placeHolder = message.Substring(0, message.Length - 2);
+                string placeHolder = message.Substring(0, message.Length - 1);
                 message = placeHolder;
             }
             Console.WriteLine();
