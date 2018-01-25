@@ -43,7 +43,7 @@ namespace Server
                 //get rid of the extra space in a message here
                 while (recievedMessageString.EndsWith("\0"))
                 {
-                    string placeHolder = recievedMessageString.Substring(0, recievedMessageString.Length - 2);
+                    string placeHolder = recievedMessageString.Substring(0, recievedMessageString.Length - 1);
                     recievedMessageString = placeHolder;
                 }
                 Console.WriteLine(recievedMessageString);

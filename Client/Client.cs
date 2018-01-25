@@ -51,7 +51,7 @@ namespace Client
         }
         public void MeetClient(string user)
         {
-            string messageString = userName + "has joined the chatroom";
+            string messageString = userName + " has joined the chatroom.";
             Console.WriteLine(messageString);
             byte[] message = Encoding.ASCII.GetBytes(messageString);
             stream.Write(message, 0, message.Count());
