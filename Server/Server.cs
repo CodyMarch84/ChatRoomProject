@@ -32,6 +32,7 @@ namespace Server
         }
         private void ClientTalk(Client client)
         {
+            string startMessage;
             while (client.isConnected)
             {
                 string message = client.Recieve();
@@ -43,9 +44,10 @@ namespace Server
                 {
                     lock (messages)
                     {
-                        Logger.Logger(messages.Peek());
-                        Respond(messages.Dequeue());
+                        startMessage = messages.Dequeue();
                     }
+                    Logger.Logger(startMessage);
+                    Respond(startMessage);
                 }
             }
         }
@@ -59,6 +61,11 @@ namespace Server
                 NetworkStream stream = clientSocket.GetStream();
                 client = new Client(stream, clientSocket);
                 client.userName = client.Recieve();
+                string messageString = client.userName + "has joined the chatroom";
+                lock (messages)
+                {
+                    messages.Enqueue(messageString);
+                }
                 users.Add(counter, client);
                 counter++;
                 Task.Run(() => ClientTalk(client));

@@ -17,7 +17,7 @@ namespace Server
         public Client(NetworkStream Stream, TcpClient Client)
         {
             stream = Stream;
-            //client = Client;
+            client = Client;
             UserId = "495933b6-1762-47a1-b655-483510072e73";
         }
         public void Send(string Message)
@@ -41,12 +41,17 @@ namespace Server
                 stream.Read(recievedMessage, 0, recievedMessage.Length);
                 string recievedMessageString = Encoding.ASCII.GetString(recievedMessage);
                 //get rid of the extra space in a message here
+                while (recievedMessageString.EndsWith("\0"))
+                {
+                    string placeHolder = recievedMessageString.Substring(0, recievedMessageString.Length - 2);
+                    recievedMessageString = placeHolder;
+                }
                 Console.WriteLine(recievedMessageString);
                 return recievedMessageString;
             }
             catch
             {
-                string disconnected = "Some one left the chat room!";
+                string disconnected = userName + ": left the chat room!";
                 Console.WriteLine(disconnected);
                 return disconnected;
             }

@@ -10,6 +10,11 @@ namespace Client
     {
         public static void DisplayMessage(string message)
         {
+            while (message.EndsWith("\0"))
+            {
+                string placeHolder = message.Substring(0, message.Length - 2);
+                message = placeHolder;
+            }
             Console.WriteLine();
             Console.WriteLine(message);
             

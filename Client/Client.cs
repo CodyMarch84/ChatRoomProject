@@ -40,7 +40,7 @@ namespace Client
 
         public void Send()
         {
-            string messageString = UI.GetInput();
+            string messageString = userName + ": " + UI.GetInput();
             byte[] message = Encoding.ASCII.GetBytes(messageString);
             stream.Write(message, 0, message.Count());
         }
@@ -51,7 +51,8 @@ namespace Client
         }
         public void MeetClient(string user)
         {
-            string messageString = user + "has just join the chat";
+            string messageString = userName + "has joined the chatroom";
+            Console.WriteLine(messageString);
             byte[] message = Encoding.ASCII.GetBytes(messageString);
             stream.Write(message, 0, message.Count());
         }
