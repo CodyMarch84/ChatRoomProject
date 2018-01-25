@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,14 +11,29 @@ namespace Server
     {
         private string message;
 
-        public LogFiles(string message)
+        public LogFiles(string logLocation)
         {
-            this.message = message;
+
         }
 
         public void Logger(string message)
         {
-            //throw new NotImplementedException();
+            string track = @"ChatRoomLog.txt";
+            if (!File.Exists(track))
+            {
+                using (StreamWriter sw = File.CreateText(track))
+                {
+                    sw.WriteLine(message);
+                }
+            }
+            else
+            {
+                using (StreamWriter sw = File.AppendText(track))
+                {
+                    sw.WriteLine(message);
+                }
+            }
         }
     }
 }
+
